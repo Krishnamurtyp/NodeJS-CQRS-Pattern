@@ -5,3 +5,5 @@ function createMessageStore({db}) {
         write:write
     }
 }
+
+module.exports = createMessageStore
