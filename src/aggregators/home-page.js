@@ -11,33 +11,33 @@ function createQueries ({ db }) {
         }
 
         const queryString = `
-      INSERT INTO
-        pages(page_name, page_data)
-      VALUES
-        ('home', :pageData)
-      ON CONFLICT DO NOTHING
-    `
+          INSERT INTO
+            pages(page_name, page_data)
+          VALUES
+            ('home', :pageData)
+          ON CONFLICT DO NOTHING
+        `
         return db.then(client => client.raw(queryString, initialData))
     }
 
     function incrementVideosWatched (globalPosition) {
         const queryString = `
-      UPDATE
-        pages
-      SET
-        page_data = jsonb_set(
-          jsonb_set(
-            page_data,
-            '{videosWatched}',
-            ((page_data ->> 'videosWatched')::int + 1)::text::jsonb
-          ),
-          '{lastViewProcessed}',
-          :globalPosition::text::jsonb
-        )
-      WHERE
-        page_name = 'home' AND
-        (page_data->>'lastViewProcessed')::int < :globalPosition
-    `
+          UPDATE
+            pages
+          SET
+            page_data = jsonb_set(
+              jsonb_set(
+                page_data,
+                '{videosWatched}',
+                ((page_data ->> 'videosWatched')::int + 1)::text::jsonb
+              ),
+              '{lastViewProcessed}',
+              :globalPosition::text::jsonb
+            )
+          WHERE
+            page_name = 'home' AND
+            (page_data->>'lastViewProcessed')::int < :globalPosition
+        `
 
         return db.then(client => client.raw(queryString, { globalPosition }))
     }
