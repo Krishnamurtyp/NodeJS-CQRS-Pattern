@@ -6,6 +6,13 @@ const config = createConfig({env})
 const app = createExpressApp({config, env})
 
 function start() {
+    // Config aggregators
+    config.aggregators.forEach(aggregator => aggregator.start())
+    
+    // Config components
+    config.components.forEach(component => component.start())
+
+    // Listen port and print signal in console    
     app.listen(env.port, signalAppStart)
 }
 
