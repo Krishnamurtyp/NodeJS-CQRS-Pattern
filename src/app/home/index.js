@@ -18,8 +18,10 @@ function createHandlers({ queries }) {
 function createQueries({ db }) {
     function loadHomePage() {
         return db.then(client =>
-            client('videos')
-                .sum('view_count as videosWatched')
+            client('pages')
+                .where({page_name:'home'})
+                .limit(1)
+                .then(camelCaseKeys)
                 .then(rows => rows[0])
         )
     }
