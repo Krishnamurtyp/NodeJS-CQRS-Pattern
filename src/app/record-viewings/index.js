@@ -1,7 +1,7 @@
 const express = require('express');
 const { v4: uuid } = require('uuid');
 
-function createAction({messageStore}){
+function createActions({messageStore}){
     function recordViewing(traceId, videoId, userId){
         const viewedEvent = {
             id:uuid(undefined, undefined, undefined),
@@ -16,7 +16,7 @@ function createAction({messageStore}){
             }
         }
 
-        const streamName = `viewing-${videoId}`;
+        const streamName = `viewing-${videoId}`
 
         return messageStore.write(streamName, viewedEvent)
     }
@@ -35,15 +35,15 @@ function createHandlers({actions}){
 }
 
 function createRecordViewings({messageStore}){
-    const action = createAction({messageStore})
+    const actions = createActions({messageStore})
 
-    const handlers = createHandlers({action})
+    const handlers = createHandlers({actions})
 
     const router = express.Router()
 
     router.route('/:videoId').post(handlers.handleRecordViewing)
 
-    return{action, handlers, router}
+    return{actions, handlers, router}
 }
 
 module.exports = createRecordViewings
