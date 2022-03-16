@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-dev-server": "nodemon src/bin/start-server.js --color"
+    "start-dev-server": "nodemon src/bin/start-server.js --color",
+    "debug": "nodemon --inspect src/bin/start-server.js --color"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.2",
     "camelcase-keys": "^7.0.2",
