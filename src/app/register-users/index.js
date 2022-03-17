@@ -70,3 +70,34 @@ function createHandlers({actions}){
         handleRegisterUser
     }
 }
+
+function createQueries ({ db }) {
+    function byEmail (email) {
+        return db
+            .then(client =>
+                client('user_credentials')
+                    .where({ email })
+                    .limit(1)
+            )
+            .then(camelCaseKeys)
+            .then(rows => rows[0])
+    }
+
+    return { byEmail }
+}
+
+function build({db, messageStore}){
+    const queries = createQueries({ db })
+    const actions = createActions({messageStore, queries})
+    const handlers = createHandlers({actions})
+
+    const router = express.Router()
+
+    router.route('/').get(handlers.handleRegistrationForm).post(bodyParser.urlencoded({extended:false}), handlers.handleRegisterUser)
+
+    router.route('/registration-complete').get(handlers.handleRegistrationComplete)
+
+    return{actions, handlers, queries, router}
+}
+
+module.exports = build

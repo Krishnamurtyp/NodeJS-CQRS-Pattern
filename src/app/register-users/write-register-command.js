@@ -6,7 +6,7 @@
  * We make no guarantees that this code is fit for any purpose.
  * Visit http://www.pragmaticprogrammer.com/titles/egmicro for more book information.
 ***/
-const uuid = require('uuid/v4')
+const {v4:uuid} = require('uuid')
 
 /**
  * @description Writes a `Register` command for the attributes that we

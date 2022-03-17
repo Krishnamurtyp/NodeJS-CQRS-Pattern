@@ -10,7 +10,7 @@ const validate = require('validate.js')
 
 const ValidationError = require('../errors/validation-error')
 
-const constraints = { 
+const constraints = {
   email: {
     email: true,
     presence: true
@@ -31,7 +31,7 @@ const constraints = {
  * @returns {object} The new action context
  */
 function v (context) {
-  const validationErrors = validate(context.attributes, constraints) 
+  const validationErrors = validate(context.attributes, constraints)
 
   if (validationErrors) {
     throw new ValidationError(validationErrors)

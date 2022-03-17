@@ -22,7 +22,8 @@
     "pg": "^8.7.3",
     "pug": "^3.0.2",
     "snakecase-keys": "^5.1.2",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "validate.js": "^0.13.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
